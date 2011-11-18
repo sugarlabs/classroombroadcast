@@ -1,0 +1,7 @@
+[Activity]
+name = ClassRoomBroadcast
+activity_version = 1
+service_name = org.laptop.ClassRoomBroadcast
+exec = sugar-activity classroombroadcast_activity.ClassRoomBroadcastActivity
+icon = activity-classroombroadcast
+license = GPLv2+
