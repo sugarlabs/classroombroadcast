@@ -218,7 +218,7 @@ class ClassRoomBroadcastActivity(activity.Activity):
 
         interfaces = []
         for line in lines:
-            interface = line.strip().split(" ") [ 0 ].replace(":","").strip()
+            interface = line.strip().split(" ")[0].split(":")[0].strip()
             interfaces.append(interface)
 
         return interfaces
@@ -239,6 +239,8 @@ class ClassRoomBroadcastActivity(activity.Activity):
 
                 ip = output[start:end]
                 ips [ interface ] = ip
+            else:
+                ips [ interface ] = ""
 
         return ips
 
@@ -250,7 +252,7 @@ class ClassRoomBroadcastActivity(activity.Activity):
 
         for interface, ip in ips.iteritems():
             if info != "":
-                info += ", "
+                info += "\n         "
 
             info += interface + ": " + ip
 
