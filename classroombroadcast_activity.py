@@ -87,7 +87,7 @@ class ClassRoomBroadcastActivity(activity.Activity):
         else:
             self.showServerStatus("off")
 
-        self._button.set_size_request(100, 100)
+        self._button.set_size_request(200, 200)
         self._button.connect("clicked", self.buttonClicked)
 
         # Add button to box
