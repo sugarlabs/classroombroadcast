@@ -68,8 +68,6 @@ class ClassRoomBroadcastActivity(activity.Activity):
         self._toolbar = toolbox.get_activity_toolbar()
         self._toolbar.remove(self._toolbar.share)
         self._toolbar.share = None
-        self._toolbar.remove(self._toolbar.keep)
-        self._toolbar.keep = None
         self.set_toolbox(toolbox)
 
         # Box
@@ -191,7 +189,7 @@ class ClassRoomBroadcastActivity(activity.Activity):
     def startServer(self):
         """Start vnc server
         """
-        cmd = ["x11vnc","-viewonly","-bg"]
+        cmd = ["x11vnc", "-viewonly", "-shared", "-bg"]
         subprocess.call(cmd, shell=False)
 
 
