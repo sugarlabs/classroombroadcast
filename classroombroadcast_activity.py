@@ -28,6 +28,7 @@ import fcntl
 import struct
 import commands
 
+
 class ClassRoomBroadcastActivity(activity.Activity):
     """Class Room Broadcast Activity
     """
@@ -104,11 +105,10 @@ class ClassRoomBroadcastActivity(activity.Activity):
         # Show all
         self.show_all()
 
-
     def setButtonBG(self, color):
         """Change button bg color
         """
-        self._button.modify_bg(gtk.STATE_NORMAL,gtk.gdk.color_parse(color))
+        self._button.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(color))
 
     def setButtonLabel(self, txt):
         """Change button label
@@ -129,7 +129,7 @@ class ClassRoomBroadcastActivity(activity.Activity):
             self.setButtonBG(self._redBG)
             self.setButtonLabel("Stop")
             status = self.checkStatus()
-            txt  = "Process ID = " + ",".join(status[1])
+            txt = "Process ID = " + ",".join(status[1])
             txt += "\n"
             txt += "Hostname = " + self.getHostname()
             txt += "\n"
@@ -155,10 +155,10 @@ class ClassRoomBroadcastActivity(activity.Activity):
         result = []
 
         psCMD = ['ps', 'ax']
-        ps    = subprocess.Popen ( psCMD, stdout = subprocess.PIPE )
+        ps = subprocess.Popen(psCMD, stdout=subprocess.PIPE)
 
-        grepCMD = [ 'grep', 'x11vnc' ]
-        grep    = subprocess.Popen ( grepCMD, stdin = ps.stdout, stdout = subprocess.PIPE )
+        grepCMD = ['grep', 'x11vnc']
+        grep = subprocess.Popen(grepCMD, stdin=ps.stdout, stdout=subprocess.PIPE)
 
         output = grep.communicate()[0]
 
@@ -173,8 +173,8 @@ class ClassRoomBroadcastActivity(activity.Activity):
 
             fields = proc.split()
 
-            procName = fields [ 4 ]
-            pid = fields [ 0 ]
+            procName = fields[4]
+            pid = fields[0]
 
             if procName != "x11vnc":
                 continue
@@ -182,16 +182,15 @@ class ClassRoomBroadcastActivity(activity.Activity):
             result.append(pid)
 
         if len(result) > 0:
-            return [ True, result ]
+            return [True, result]
 
-        return [ False, [] ]
+        return [False, []]
 
     def startServer(self):
         """Start vnc server
         """
         cmd = ["x11vnc", "-viewonly", "-shared", "-bg"]
         subprocess.call(cmd, shell=False)
-
 
     def stopServer(self):
         """Stop vnc server
@@ -200,7 +199,7 @@ class ClassRoomBroadcastActivity(activity.Activity):
         pids = status[1]
 
         for pid in pids:
-            os.system("kill -9 " + pid )
+            os.system("kill -9 " + pid)
 
         self.showServerStatus("off")
 
@@ -208,7 +207,7 @@ class ClassRoomBroadcastActivity(activity.Activity):
         return socket.gethostname()
 
     def getNetworkInterfaces(self):
-        f = open('/proc/net/dev','r')
+        f = open('/proc/net/dev', 'r')
         lines = f.readlines()
         f.close()
         lines.pop(0)
@@ -221,24 +220,24 @@ class ClassRoomBroadcastActivity(activity.Activity):
 
         return interfaces
 
-    def getNetworkIPs ( self, interfaces ):
+    def getNetworkIPs(self, interfaces):
         pattern = "inet addr:"
         cmdName = "/sbin/ifconfig"
-        ips     = {}
+        ips = {}
 
         for interface in interfaces:
-            cmd    = cmdName + " " + interface
+            cmd = cmdName + " " + interface
             output = commands.getoutput(cmd)
-            inet   = output.find(pattern)
+            inet = output.find(pattern)
 
             if inet >= 0:
                 start = inet + len(pattern)
-                end   = output.find(" ",start)
+                end = output.find(" ", start)
 
                 ip = output[start:end]
-                ips [ interface ] = ip
+                ips[interface] = ip
             else:
-                ips [ interface ] = ""
+                ips[interface] = ""
 
         return ips
 
