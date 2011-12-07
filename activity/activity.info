@@ -1,6 +1,6 @@
 [Activity]
 name = ClassRoomBroadcast
-activity_version = 3
+activity_version = 4
 bundle_id = org.laptop.ClassRoomBroadcast
 exec = sugar-activity classroombroadcast_activity.ClassRoomBroadcastActivity
 icon = activity-classroombroadcast
