@@ -141,11 +141,109 @@ class ClassRoomBroadcastActivity(activity.Activity):
             self.startServer()
             self.showServerStatus("on")
 
+    def startServer(self):
+        """Start vnc server
+        """
+        cmd = ["x11vnc", "-viewonly", "-shared", "-bg", "-forever", "-solid", "-wireframe"]
+
+        subprocess.call(cmd, shell=False)
+
+    def stopServer(self):
+        """Stop vnc server
+        """
+        status = self.checkStatus()
+        pids = status[1]
+
+        for pid in pids:
+            os.system("kill -9 " + pid)
+
+        self.showServerStatus("off")
+
+    def getHostname(self):
+        """Get server name
+        """
+        return socket.gethostname()
+
+    def getNetworkInterfaces(self):
+        """Get server network interfaces names
+        """
+        f = open('/proc/net/dev', 'r')
+        lines = f.readlines()
+        f.close()
+        lines.pop(0)
+        lines.pop(0)
+
+        interfaces = []
+        for line in lines:
+            interface = line.strip().split(" ")[0].split(":")[0].strip()
+            interfaces.append(interface)
+
+        return interfaces
+
+    def getNetworkIPs(self, interfaces):
+        """Get server IPs per interface
+        """
+        pattern = "inet addr:"
+        cmdName = "/sbin/ifconfig"
+        ips = {}
+
+        for interface in interfaces:
+            cmd = cmdName + " " + interface
+            output = commands.getoutput(cmd)
+            inet = output.find(pattern)
+
+            if inet >= 0:
+                start = inet + len(pattern)
+                end = output.find(" ", start)
+
+                ip = output[start:end]
+                ips[interface] = ip
+            else:
+                ips[interface] = ""
+
+        return ips
+
+    def getNetworkInfo(self):
+        """Get server network map {IFACE:IP}
+        """
+        info = ""
+
+        interfaces = self.getNetworkInterfaces()
+        ips = self.getNetworkIPs(interfaces)
+
+        for interface, ip in ips.iteritems():
+            if info != "":
+                info += "\n         "
+
+            info += interface + ": " + ip
+
+        return info
+
     def checkStatus(self):
         """Check if X11VNC is running
         """
         result = []
 
+        ps = subprocess.Popen(["pidof","x11vnc"],stdout=subprocess.PIPE)
+        pid = ps.communicate()[0].strip().split(" ")
+        ps.stdout.close()
+        pids = []
+
+        # Cleaning step
+        for p in pid:
+            p = p.strip()
+
+            if p != "":
+                pids.append(p)
+
+
+        if len(pids) > 0:
+            return [True, pids]
+
+        return [False, []]
+
+        """
+        THIS METHOD IS LESS EFFICIENT THAN USING SHELL COMMAND 'pidof'
         psCMD = ['ps', 'ax']
         ps = subprocess.Popen(psCMD, stdout=subprocess.PIPE)
 
@@ -177,72 +275,4 @@ class ClassRoomBroadcastActivity(activity.Activity):
             return [True, result]
 
         return [False, []]
-
-    def startServer(self):
-        """Start vnc server
         """
-        cmd = ["x11vnc", "-viewonly", "-shared", "-bg"]
-        subprocess.call(cmd, shell=False)
-
-    def stopServer(self):
-        """Stop vnc server
-        """
-        status = self.checkStatus()
-        pids = status[1]
-
-        for pid in pids:
-            os.system("kill -9 " + pid)
-
-        self.showServerStatus("off")
-
-    def getHostname(self):
-        return socket.gethostname()
-
-    def getNetworkInterfaces(self):
-        f = open('/proc/net/dev', 'r')
-        lines = f.readlines()
-        f.close()
-        lines.pop(0)
-        lines.pop(0)
-
-        interfaces = []
-        for line in lines:
-            interface = line.strip().split(" ")[0].split(":")[0].strip()
-            interfaces.append(interface)
-
-        return interfaces
-
-    def getNetworkIPs(self, interfaces):
-        pattern = "inet addr:"
-        cmdName = "/sbin/ifconfig"
-        ips = {}
-
-        for interface in interfaces:
-            cmd = cmdName + " " + interface
-            output = commands.getoutput(cmd)
-            inet = output.find(pattern)
-
-            if inet >= 0:
-                start = inet + len(pattern)
-                end = output.find(" ", start)
-
-                ip = output[start:end]
-                ips[interface] = ip
-            else:
-                ips[interface] = ""
-
-        return ips
-
-    def getNetworkInfo(self):
-        info = ""
-
-        interfaces = self.getNetworkInterfaces()
-        ips = self.getNetworkIPs(interfaces)
-
-        for interface, ip in ips.iteritems():
-            if info != "":
-                info += "\n         "
-
-            info += interface + ": " + ip
-
-        return info
