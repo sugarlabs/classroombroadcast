@@ -59,8 +59,8 @@ class ClassRoomBroadcastActivity(activity.Activity):
         # Toolbar
         toolbox = ActivityToolbox(self)
         self._toolbar = toolbox.get_activity_toolbar()
-        self._toolbar.remove(self._toolbar.share)
-        self._toolbar.share = None
+        #~ self._toolbar.remove(self._toolbar.share)
+        #~ self._toolbar.share = None
         self.set_toolbox(toolbox)
 
         # Box
