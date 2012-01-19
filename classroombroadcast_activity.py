@@ -113,11 +113,11 @@ class ClassRoomBroadcastActivity(activity.Activity):
     def showServerStatus(self, state="off"):
         if state == "off":
             self.setButtonBG(self._greenBG)
-            self.setButtonLabel("Start")
+            self.setButtonLabel(_("Start"))
             self.setLabelTXT("")
         else:
             self.setButtonBG(self._redBG)
-            self.setButtonLabel("Stop")
+            self.setButtonLabel(_("Stop"))
             status = self.checkStatus()
             txt = "Process ID = " + ",".join(status[1])
             txt += "\n"
