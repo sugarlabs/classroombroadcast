@@ -114,7 +114,7 @@ class Utilities():
     def startProgram(self, programName, args=[]):
         fname = "/usr/bin/" + programName
         if not os.path.isfile(fname):
-            fname = programName
+            fname = "./" + programName
 
         cmd = [fname]
 
