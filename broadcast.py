@@ -78,7 +78,7 @@ class BroadcastUI():
 
         # Button
         self._button = gtk.Button()
-        self._button.set_size_request(200, 200)
+        self._button.set_size_request(200, 50)
         self._button.connect("clicked", self.buttonClicked)
 
         # Add button to box
