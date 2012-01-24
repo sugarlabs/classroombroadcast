@@ -3,6 +3,9 @@ import os
 import socket
 import commands
 
+from gettext import gettext as _
+
+
 class Utilities():
     """Utilities
     """
