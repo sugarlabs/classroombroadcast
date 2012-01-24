@@ -20,6 +20,7 @@ import os
 import socket
 import commands
 
+from sugar.presence import presenceservice
 
 class ClassRoomBroadcastActivity(activity.Activity):
     """Class Room Broadcast Activity
@@ -36,6 +37,10 @@ class ClassRoomBroadcastActivity(activity.Activity):
     _toolbar = None
     _boxAlign = None
 
+    # Telepathy
+    _presence = None
+    _owner = None
+
     def __init__(self, handle):
         """Class constructor
         """
@@ -43,14 +48,68 @@ class ClassRoomBroadcastActivity(activity.Activity):
         # Initialize parent class
         activity.Activity.__init__(self, handle)
 
-        # Remove colaboration features
-        self.max_participants = 1
-
         # Debug msg
         logging.debug("Starting Class Room Broadcast Activity")
 
         # Load GUI
         self.loadGUI()
+
+        # Telepathy handler
+        self.telepathyHandler()
+
+    def telepathyHandler(self):
+        """Telepathy handler
+        """
+        self._presence = presenceservice.get_instance()
+        self._owner = self._presence.get_owner()
+
+        # Event subscribers
+        self.connect('shared', self._shared_cb)
+        self.connect('joined', self._joined_cb)
+
+    def _sharing_setup(self):
+        """Setup variables for sharing action
+        """
+        if not self._shared_activity:
+            return
+
+        self.conn       = self._shared_activity.telepathy_conn
+        self.tubes_chan = self._shared_activity.telepathy_tubes_chan
+        self.text_chan  = self._shared_activity.telepathy_text_chan
+
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal('NewTube', self._new_tube_cb)
+
+        self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
+        self._shared_activity.connect('buddy-left',   self._buddy_left_cb)
+
+
+    def _shared_cb(self, activity):
+        """Handler for share state
+        """
+        status = self.checkStatus()
+
+        # If server is running abort this method
+        if status[0]:
+            return
+
+        self._sharing_setup()
+
+        estructura = "%s %s" % (SERVIDOR, "-viewonly -forever -solid -shared -wireframe")
+        self.server = subprocess.Popen(estructura, shell=True, stdin=subprocess.PIPE,
+        stdout=open(STDOUT, "w+b"), stderr=open(STDOUT, "r+b"), universal_newlines=True)
+        ids = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(SERVICE, {})
+
+
+
+    def _joined_cb(self, activity):
+        # me conecto.
+        if not self._shared_activity:
+                return
+        self.initiating = False
+        self._sharing_setup()
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(reply_handler=self._list_tubes_reply_cb, error_handler=self._list_tubes_error_cb)
+
+
 
     def loadGUI(self):
         """Create and show GUI
@@ -59,8 +118,6 @@ class ClassRoomBroadcastActivity(activity.Activity):
         # Toolbar
         toolbox = ActivityToolbox(self)
         self._toolbar = toolbox.get_activity_toolbar()
-        #~ self._toolbar.remove(self._toolbar.share)
-        #~ self._toolbar.share = None
         self.set_toolbox(toolbox)
 
         # Box
