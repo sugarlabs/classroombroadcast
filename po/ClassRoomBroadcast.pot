@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-18 22:48-0500\n"
+"POT-Creation-Date: 2012-01-24 09:50-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,10 +21,22 @@ msgstr ""
 msgid "ClassRoomBroadcast"
 msgstr ""
 
-#: classroombroadcast_activity.py:116
+#: broadcast.py:50
 msgid "Start"
 msgstr ""
 
-#: classroombroadcast_activity.py:120
+#: broadcast.py:51
 msgid "Stop"
+msgstr ""
+
+#: utilities.py:10
+msgid "IPs"
+msgstr ""
+
+#: utilities.py:11
+msgid "Process ID"
+msgstr ""
+
+#: utilities.py:12
+msgid "Hostname"
 msgstr ""
