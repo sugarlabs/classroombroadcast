@@ -5,7 +5,6 @@ import commands
 
 from gettext import gettext as _
 
-
 class Utilities():
     """Utilities
     """
@@ -113,7 +112,11 @@ class Utilities():
                 os.system("kill -9 " + pid)
 
     def startProgram(self, programName, args=[]):
-        cmd = [programName]
+        fname = "/usr/bin/" + programName
+        if not os.path.isfile(fname):
+            fname = programName
+
+        cmd = [fname]
 
         if len(args) > 0:
             for arg in args:
