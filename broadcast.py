@@ -13,7 +13,7 @@ class BroadcastProcess():
 
     # process details
     _programName = "x11vnc"
-    _args = ["-viewonly", "-shared", "-bg", "-forever", "-solid", "-wireframe", "-localhost"]
+    _args = ["-viewonly", "-shared", "-bg", "-forever", "-solid", "-wireframe"]
 
     def __init__(self):
         """Constructor
