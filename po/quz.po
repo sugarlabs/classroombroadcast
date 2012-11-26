@@ -7,38 +7,48 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-24 12:07-0500\n"
-"PO-Revision-Date: 2012-07-23 07:06+0200\n"
+"PO-Revision-Date: 2012-11-20 09:18+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: quz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
 "X-Generator: Pootle 2.0.5\n"
 
+# ClassRoomBroadcast
+# 
 #: activity/activity.info:2
 msgid "ClassRoomBroadcast"
 msgstr ""
 
+# Empezar
 #: broadcast.py:50
 #, fuzzy
 msgid "Start"
 msgstr "Qallariy"
 
+# Parar
 #: broadcast.py:51
 #, fuzzy
 msgid "Stop"
 msgstr "Sayachiy"
 
+# IPs
 #: utilities.py:12
+#, fuzzy
 msgid "IPs"
-msgstr ""
+msgstr "IPs"
 
+# ID de Proceso
+# 
 #: utilities.py:13
 msgid "Process ID"
 msgstr ""
 
+# Nombre de host
+# 
 #: utilities.py:14
 msgid "Hostname"
 msgstr ""
