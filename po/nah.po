@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-24 12:07-0500\n"
-"PO-Revision-Date: 2012-04-28 06:35+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2013-11-04 22:26+0200\n"
+"Last-Translator: usuarionahuatl02 <proyecto.olpc@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "ClassRoomBroadcast"
-msgstr ""
+msgstr "ClassRoomBroadcast"
 
 #: broadcast.py:50
 msgid "Start"
-msgstr ""
+msgstr "Peualtis"
 
 #: broadcast.py:51
 msgid "Stop"
@@ -31,12 +31,12 @@ msgstr "Moketsas"
 
 #: utilities.py:12
 msgid "IPs"
-msgstr ""
+msgstr "IPs"
 
 #: utilities.py:13
 msgid "Process ID"
-msgstr ""
+msgstr "ID de Proceso"
 
 #: utilities.py:14
 msgid "Hostname"
-msgstr ""
+msgstr "Tokax tlen host"
