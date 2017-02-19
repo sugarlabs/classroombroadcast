@@ -2,42 +2,41 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-24 12:07-0500\n"
-"PO-Revision-Date: 2016-11-21 07:22+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: he\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1479712973.000000\n"
+"X-Generator: Translate Toolkit 1.11.0\n"
 
 #: activity/activity.info:2
 msgid "ClassRoomBroadcast"
-msgstr "הכיתה המשודרת"
+msgstr ""
 
 #: broadcast.py:50
 msgid "Start"
-msgstr "התחלה"
+msgstr ""
 
 #: broadcast.py:51
 msgid "Stop"
-msgstr "עצירה"
+msgstr ""
 
 #: utilities.py:12
 msgid "IPs"
-msgstr "כתובות IP"
+msgstr ""
 
 #: utilities.py:13
 msgid "Process ID"
-msgstr "מס׳ תהליך"
+msgstr ""
 
 #: utilities.py:14
 msgid "Hostname"
-msgstr "שם מארח"
+msgstr ""
