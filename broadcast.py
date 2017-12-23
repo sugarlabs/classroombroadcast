@@ -1,8 +1,11 @@
 from gettext import gettext as _
-import gtk
-import pango
-
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import Pango as pango
 from utilities import Utilities
+
 
 class BroadcastProcess():
     """Broadcast process component
@@ -33,7 +36,7 @@ class BroadcastProcess():
         if self.getStatus():
             self._utilities.endProgram(self._programName)
         else:
-            self._utilities.startProgram(self._programName,self._args)
+            self._utilities.startProgram(self._programName, self._args)
 
     def getProcessInfo(self):
         return self._utilities.getNetworkProcessInfo(self._programName)
@@ -71,24 +74,25 @@ class BroadcastUI():
         """Create and show UI
         """
         # Box
-        self._box = gtk.VBox()
+        self._box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
         # Label
-        self._label = gtk.Label()
+        self._label = Gtk.Label()
 
         # Button
-        self._button = gtk.Button()
+        self._button = Gtk.Button()
         self._button.set_size_request(200, 50)
         self._button.connect("clicked", self.buttonClicked)
 
-        # Add button to box
-        self._box.pack_start(self._button)
+    # Add button to box
+        self._box.add(self._button)
 
         # Add label to box
-        self._box.pack_start(self._label, padding=20)
+        self._box.pack_start(self._label, True, True, 20)
 
-        # Box Align (xalign, yalign, xscale, yscale)
-        self._boxAlign = gtk.Alignment(0.5, 0.5, 0, 0)
+        # Align (xalign, yalign, xscale, yscale)
+        self._boxAlign = Gtk.Alignment(
+            xalign=0.5, yalign=0.5, xscale=0, yscale=0)
         self._boxAlign.add(self._box)
 
         # Set canvas with box alignment
@@ -97,7 +101,7 @@ class BroadcastUI():
     def setButtonBG(self, color):
         """Change button bg color
         """
-        self._button.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse(color))
+        self._button.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse(color))
 
     def setButtonLabel(self, txt):
         """Change button label
@@ -129,6 +133,7 @@ class BroadcastUI():
             self.setButtonLabel(self._STOP)
             self.setLabelTXT(self._process.getProcessInfo())
 
+
 class Broadcast():
     """Broadcast component for Classroom Broadfcast Activity
     """
@@ -136,7 +141,7 @@ class Broadcast():
     _process = None
     _ui = None
 
-    def __init__(self,activity):
+    def __init__(self, activity):
         """Constructor
         """
         self._activity = activity
