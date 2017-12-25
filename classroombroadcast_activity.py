@@ -12,11 +12,21 @@
 
 import logging
 from gettext import gettext as _
-from sugar.activity import activity
-from sugar.activity.activity import ActivityToolbox
-import gtk
+
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+
+from sugar3.activity import bundlebuilder
+from sugar3.activity import activity
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.activity.widgets import ActivityToolbarButton
+from sugar3.activity.widgets import StopButton
+from sugar3.graphics.toolbarbox import ToolbarButton
+from sugar3.graphics import style
 
 from broadcast import Broadcast
+
 
 class ClassRoomBroadcastActivity(activity.Activity):
     """Class Room Broadcast Activity
@@ -42,7 +52,7 @@ class ClassRoomBroadcastActivity(activity.Activity):
 
         # create broadcast component
         self._broadcast = Broadcast(self)
-        self._broadcast.loadUI();
+        self._broadcast.loadUI()
 
         # Show UI
         self.showUI()
@@ -59,14 +69,24 @@ class ClassRoomBroadcastActivity(activity.Activity):
         self.max_participants = 1
 
         # Toolbar
-        toolbox = ActivityToolbox(self)
-        self._toolbar = toolbox.get_activity_toolbar()
+        toolbar_box = ToolbarBox()
 
-        self._toolbar.remove(self._toolbar.share)
-        self._toolbar.share = None
-        self._toolbar.remove(self._toolbar.keep)
-        self._toolbar.keep = None
-        self.set_toolbox(toolbox)
+        activity_button = ActivityToolbarButton(self)
+        toolbar_box.toolbar.insert(activity_button, 0)
+        activity_button.show()
+
+        separator = Gtk.SeparatorToolItem()
+        separator.props.draw = False
+        separator.set_expand(True)
+        toolbar_box.toolbar.insert(separator, -1)
+        separator.show()
+
+        stop_button = StopButton(self)
+        toolbar_box.toolbar.insert(stop_button, -1)
+        stop_button.show()
+
+        self.set_toolbar_box(toolbar_box)
+        toolbar_box.show()
 
     def showUI(self):
         """Show UI elements
