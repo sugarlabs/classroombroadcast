@@ -84,7 +84,7 @@ class BroadcastUI():
         self._button.set_size_request(200, 50)
         self._button.connect("clicked", self.buttonClicked)
 
-    # Add button to box
+        # Add button to box
         self._box.add(self._button)
 
         # Add label to box
