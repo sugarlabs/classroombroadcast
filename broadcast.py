@@ -7,7 +7,7 @@ from gi.repository import Pango as pango
 from utilities import Utilities
 
 
-class BroadcastProcess():
+class BroadcastProcess:
     """Broadcast process component
     """
 
@@ -42,7 +42,7 @@ class BroadcastProcess():
         return self._utilities.getNetworkProcessInfo(self._programName)
 
 
-class BroadcastUI():
+class BroadcastUI:
     """Broadcast UI component for Classroom Broadcast Activity
     """
     # Constants
@@ -134,8 +134,8 @@ class BroadcastUI():
             self.setLabelTXT(self._process.getProcessInfo())
 
 
-class Broadcast():
-    """Broadcast component for Classroom Broadfcast Activity
+class Broadcast:
+    """Broadcast component for Classroom Broadcast Activity
     """
     _activity = None
     _process = None
