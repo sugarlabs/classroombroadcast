@@ -27,15 +27,15 @@ class Utilities():
         """
         result = []
 
-        ps = subprocess.Popen(["pidof",programName],stdout=subprocess.PIPE,text=True)
-        pid = ps.communicate()[0].strip().split(" ")
+        ps = subprocess.Popen(["pidof",programName],stdout=subprocess.PIPE)
+        pid = ps.communicate()[0].strip().split(b" ")
         ps.stdout.close()
         pids = []
 
         for p in pid:
             p = p.strip()
 
-            if p != "":
+            if p != b"":
                 pids.append(p)
 
         if len(pids) > 0:
@@ -109,7 +109,7 @@ class Utilities():
         if status [ 0 ] == True:
             pids = status[1]
             for pid in pids:
-                os.system("kill -9 " + pid)
+                os.system(b"kill -9 " + pid)
 
     def startProgram(self, programName, args=[]):
         fname = "/usr/bin/" + programName
@@ -128,7 +128,7 @@ class Utilities():
         status = self.checkProgramStatus(programName)
         pid = ""
         if status [ 0 ]:
-            pid = ",".join(status[1])
+            pid = ",".join(str(p).strip("b'") for p in status[1])
 
         txt = self._PROCESSID + " = " + pid
         txt += "\n"
