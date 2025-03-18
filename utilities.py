@@ -128,7 +128,7 @@ class Utilities():
         status = self.checkProgramStatus(programName)
         pid = ""
         if status [ 0 ]:
-            pid = ",".join(str(p).strip("b'") for p in status[1])
+            pid = ",".join(p.decode(errors='ignore') for p in status[1])
 
         txt = self._PROCESSID + " = " + pid
         txt += "\n"
