@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Copyright (C) 2006, Red Hat, Inc.
 #
@@ -17,5 +17,5 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 from sugar3.activity import bundlebuilder
-
-bundlebuilder.start()
+if __name__ == "__main__":
+    bundlebuilder.start()
