@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-24 12:07-0500\n"
-"PO-Revision-Date: 2024-10-31 22:26+0000\n"
+"PO-Revision-Date: 2026-06-15 07:48+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/classroom-broadcast/ka/>\n"
@@ -25,7 +25,7 @@ msgstr "ClassRoomBroadcast"
 
 #: broadcast.py:50
 msgid "Start"
-msgstr "დაწყება"
+msgstr "გაშვება"
 
 #: broadcast.py:51
 msgid "Stop"
