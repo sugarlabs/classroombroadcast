@@ -1,7 +1,7 @@
 import subprocess
 import os
 import socket
-import commands
+import signal
 
 from gettext import gettext as _
 
@@ -28,14 +28,14 @@ class Utilities():
         result = []
 
         ps = subprocess.Popen(["pidof",programName],stdout=subprocess.PIPE)
-        pid = ps.communicate()[0].strip().split(" ")
+        pid = ps.communicate()[0].strip().split(b" ")
         ps.stdout.close()
         pids = []
 
         for p in pid:
             p = p.strip()
 
-            if p != "":
+            if p != b"":
                 pids.append(p)
 
         if len(pids) > 0:
@@ -73,7 +73,7 @@ class Utilities():
 
         for interface in interfaces:
             cmd = cmdName + " " + interface
-            output = commands.getoutput(cmd)
+            output = subprocess.getoutput(cmd)
             inet = output.find(pattern)
 
             if inet >= 0:
@@ -95,7 +95,7 @@ class Utilities():
         interfaces = self.getNetworkInterfaces()
         ips = self.getNetworkIPs(interfaces)
 
-        for interface, ip in ips.iteritems():
+        for interface, ip in ips.items():
             if info != "":
                 info += "\n         "
 
@@ -109,7 +109,7 @@ class Utilities():
         if status [ 0 ] == True:
             pids = status[1]
             for pid in pids:
-                os.system("kill -9 " + pid)
+                os.system(b"kill -9 " + pid)
 
     def startProgram(self, programName, args=[]):
         fname = "/usr/bin/" + programName
@@ -128,7 +128,7 @@ class Utilities():
         status = self.checkProgramStatus(programName)
         pid = ""
         if status [ 0 ]:
-            pid = ",".join(status[1])
+            pid = ",".join(p.decode(errors='ignore') for p in status[1])
 
         txt = self._PROCESSID + " = " + pid
         txt += "\n"

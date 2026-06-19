@@ -2,6 +2,6 @@
 name = ClassRoomBroadcast
 activity_version = 10
 bundle_id = org.laptop.ClassRoomBroadcast
-exec = sugar-activity classroombroadcast_activity.ClassRoomBroadcastActivity
+exec = sugar-activity3 classroombroadcast_activity.ClassRoomBroadcastActivity
 icon = activity-classroombroadcast
 license = GPLv3
